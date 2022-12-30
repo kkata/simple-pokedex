@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 
 export const PokemonList = () => {
   const { data, isLoading } = useQuery(
@@ -16,7 +17,11 @@ export const PokemonList = () => {
   return (
     <>
       {!isLoading &&
-        data.results.map((e: any) => <div key={e.name}>{e.name}</div>)}
+        data.results.map((e: any) => (
+          <div key={e.name}>
+            <Link to={`/details/${e.name}`}>{e.name}</Link>
+          </div>
+        ))}
     </>
   );
 };

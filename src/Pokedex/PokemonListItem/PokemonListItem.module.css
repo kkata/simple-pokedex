@@ -1,0 +1,17 @@
+.item-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 96px auto;
+  color: #333;
+  text-decoration: none;
+}
+
+.item-container:nth-child(2n) {
+  background-color: #f6f6f6;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

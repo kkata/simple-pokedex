@@ -1,8 +1,9 @@
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { PokemonListType, PokemonType } from "../types";
+import { PokemonListItemWrapper } from "./PokemonListItem";
 
 export const PokemonList = () => {
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isSuccess } = useQuery<PokemonListType, boolean>(
     "pokemon-list",
     async () => {
       return await fetch(
@@ -17,10 +18,9 @@ export const PokemonList = () => {
   return (
     <>
       {!isLoading &&
-        data.results.map((e: any) => (
-          <div key={e.name}>
-            <Link to={`/details/${e.name}`}>{e.name}</Link>
-          </div>
+        isSuccess &&
+        data.results.map((item: PokemonType) => (
+          <PokemonListItemWrapper key={item.name} {...item} />
         ))}
     </>
   );

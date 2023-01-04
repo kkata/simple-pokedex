@@ -1,0 +1,15 @@
+@keyframes pulse {
+  0% {
+    background-color: lightgray;
+  }
+  66% {
+    background-color: grey;
+  }
+  100% {
+    background-color: lightgray;
+  }
+}
+
+.skeleton {
+  animation: pulse 2s linear infinite;
+}

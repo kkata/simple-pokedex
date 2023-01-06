@@ -1,15 +1,12 @@
 import { useQuery } from "react-query";
+import { listFetcher } from "../Api";
 import { PokemonListType, PokemonType } from "../types";
 import { PokemonListItemWrapper } from "./PokemonListItem";
 
 export const PokemonList = () => {
   const { data, isLoading, isSuccess } = useQuery<PokemonListType, boolean>(
     "pokemon-list",
-    async () => {
-      return await fetch(
-        "https://pokeapi.co/api/v2/pokemon?limit=100&offset=0"
-      ).then((res) => res.json());
-    },
+    listFetcher(),
     {
       staleTime: 600_000,
     }

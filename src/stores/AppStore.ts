@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 
 const AppStore = () => {
-  makeAutoObservable({
+  return makeAutoObservable({
     searchQuery: "",
-    handleSearchQueryChange(query: string) {
-      this.searchQuery = query;
+    handleSearchQueryChange(value: string) {
+      this.searchQuery = value;
     },
   });
 };

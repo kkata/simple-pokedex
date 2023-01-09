@@ -1,0 +1,10 @@
+.pokemon-link {
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pokemon-link:nth-child(2n) {
+  background-color: #f6f6f6;
+  display: block;
+}

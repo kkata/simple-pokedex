@@ -1,14 +1,18 @@
 import { useInfiniteQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { listFetcher } from "../Api";
-import { PokemonType } from "../types";
-import { PokemonListItemWrapper } from "./PokemonListItem";
-import styles from "./PokemonList.module.css";
+import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
+import { listFetcher } from "../Api";
+import { PokemonListItemWrapper } from "./PokemonListItem";
 import { assertIsDefined } from "../utils/assert";
+import { useStore } from "../stores";
+import { PokemonType } from "../types";
+import styles from "./PokemonList.module.css";
 
 export const PokemonList = observer(
   ({ filter }: { filter: (pokemon: PokemonType) => boolean }) => {
+    const { app } = useStore();
+
     const { data, isLoading, isSuccess, fetchNextPage, hasNextPage } =
       useInfiniteQuery("pokemon-list", listFetcher(), {
         staleTime: 600_000,
@@ -20,6 +24,14 @@ export const PokemonList = observer(
         },
       });
 
+    useEffect(() => {
+      window.scrollTo(0, app.scrollPosition);
+    }, [app]);
+
+    const handlePokemonClick = () => {
+      app.handleScrollPositionChange(window.scrollY);
+    };
+
     return (
       <>
         {!isLoading &&
@@ -30,6 +42,7 @@ export const PokemonList = observer(
                 to={`/details/${item.name}`}
                 key={item.name}
                 className={styles["pokemon-link"]}
+                onClick={handlePokemonClick}
               >
                 <PokemonListItemWrapper {...item} />
               </Link>

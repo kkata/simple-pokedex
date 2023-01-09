@@ -8,3 +8,13 @@
   background-color: #f6f6f6;
   display: block;
 }
+
+.load-more-btn {
+  padding: 1rem 0.5rem;
+  background: #48f;
+  margin: 2rem auto;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  display: block;
+}

@@ -1,3 +1,5 @@
+import { PokemonListType } from "./types";
+
 export const BASE_URL = "https://pokeapi.co/api/v2";
 
 export const detailFetcher = (name: string) => async () => {
@@ -12,8 +14,18 @@ export const detailFetcher = (name: string) => async () => {
   };
 };
 
-export const listFetcher = () => async () => {
-  return await fetch(BASE_URL + "/pokemon?limit=100&offset=0").then((res) =>
-    res.json()
-  );
+type PageParamType = {
+  pageParam?: number;
 };
+
+export const listFetcher: () => ({
+  pageParam,
+}: PageParamType) => Promise<PokemonListType & PageParamType> =
+  () =>
+  async ({ pageParam = 0 }) => {
+    return await fetch(
+      BASE_URL + "/pokemon?limit=100&offset=" + pageParam * 100
+    )
+      .then((res) => res.json())
+      .then((res) => ({ ...res, pageParam }));
+  };
